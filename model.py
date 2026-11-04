@@ -55,3 +55,41 @@ def prepend_class_token(patch_embeddings, class_token):
     class_token = class_token.expand(B, 1, embed_dim)
     return torch.cat((class_token, patch_embeddings), dim=1)
 
+# Step 6 - add_position_embeddings
+import torch
+
+def add_position_embeddings(tokens, position_embeddings):
+    """Add learnable position embeddings to a (B, S, D) token sequence."""
+    # TODO: combine tokens (B, S, D) with position_embeddings (1, S, D) via broadcasting.
+    return tokens + position_embeddings
+
+# Step 7 - compute_attention_scores
+import torch
+
+def compute_attention_scores(q, k):
+    """Compute raw attention scores Q @ K^T.
+
+    q: (..., Sq, d_head)
+    k: (..., Sk, d_head)
+    returns: (..., Sq, Sk)
+    """
+    # TODO: compute the raw attention scores as Q times K-transpose
+    
+    return torch.matmul(q, k.mT)
+
+# Step 8 - scale_attention_scores
+import torch
+import math
+
+def scale_attention_scores(scores, d_head):
+    """Scale raw attention scores so softmax inputs stay well-conditioned."""
+    # TODO: Divide raw attention scores by a constant derived from d_head.
+    return scores / math.sqrt(d_head)
+
+# Step 9 - apply_attention_mask
+def apply_attention_mask(scores, mask):
+    # TODO: add an additive mask (0 = allowed, -inf = blocked) to attention scores.
+    if mask is None:
+        return scores
+    return scores + mask
+
