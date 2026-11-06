@@ -151,3 +151,14 @@ def project_qkv(x, wq, bq, wk, bk, wv, bv):
 
     return proj_q, proj_k, proj_v
 
+# Step 16 - split_qkv_into_heads
+import torch
+
+def split_qkv_into_heads(q, k, v, num_heads):
+    # TODO: reshape q, k, v from (B, S, d_model) into (B, num_heads, S, d_head) each
+    q_h = split_into_heads(q, num_heads)
+    q_k = split_into_heads(k, num_heads)
+    q_v = split_into_heads(v, num_heads)
+
+    return q_h, q_k, q_v
+
