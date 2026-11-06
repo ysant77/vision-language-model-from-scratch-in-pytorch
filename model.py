@@ -142,3 +142,12 @@ def merge_heads(x):
     trans = x.transpose(1, 2).contiguous()
     return trans.reshape(B, S, -1)
 
+# Step 15 - project_qkv
+def project_qkv(x, wq, bq, wk, bk, wv, bv):
+    # TODO: project x into separate query, key, and value tensors using three linear layers.
+    proj_q = linear_projection(x, wq, bq)
+    proj_k = linear_projection(x, wk, bk)
+    proj_v = linear_projection(x, wv, bv)
+
+    return proj_q, proj_k, proj_v
+
